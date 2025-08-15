@@ -13,5 +13,6 @@ for container in $(docker ps -q); do
     echo "Container Image: $(docker inspect -f '{{.Config.Image}}' "$container")"
     echo "Container Ports: $(docker inspect -f '{{range .NetworkSettings.Ports}}{{.}}{{end}}' "$container")"
     echo "Container Port Mappings: $(docker port "$container")"
+    echo "Checking Port : $(docker inspect -f '{{range $p, $conf := .NetworkSettings.Ports}} {{range $conf}}{{.HostPort}}{{end}}{{end}}' "$container")"
     echo "========================================================================================="
 done
